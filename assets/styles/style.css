@@ -1,0 +1,43 @@
+.root {
+  margin: 10px;
+}
+
+/*Заголовок страницы*/
+.container__title {
+  text-align: center;
+}
+
+/*обертка блока для добавления информации о супер героях*/
+.container__squad {
+  display: grid;
+  grid-gap: 19px;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+}
+
+/*блок с информацией о супер героях*/
+.container__superheroe {
+  display: grid;
+  justify-items: center;
+  background-color: bisque;
+  border-radius: 15px;
+}
+
+p {
+  margin-block-start: 0;
+  padding: 11px;
+}
+
+.container__superheroe-occupation,
+.container__superheroe-superpowers,
+.container__superheroe-info {
+  text-align: center;
+}
+
+/*фото супер героев*/
+.container__superheroe-img {
+  max-width: 25rem;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 1em;
+}
