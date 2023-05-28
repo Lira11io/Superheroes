@@ -120,45 +120,69 @@ document.addEventListener("DOMContentLoaded", function (event) {
     <p class="container__superheroe-superpowers">Суперсилы: ${superheroe.superpowers}</p>
     <img class="container__superheroe-img" src="${superheroe.url}">
     <p class="container__superheroe-info">Краткий экскурс: ${superheroe.info}</p>
-    <div class="container__superheroe-raiting">Оцените супергероя</div>    
+    <div class="container__superheroe-raiting"></div>    
     </div>`;
   }
+
   //добавляем разметку в html
   document.querySelector(".container__squad").innerHTML = superheroesContent;
+
+  //Добавляем рейтинг к каждому блоку супергероя
+  /*  document
+    .querySelectorAll(".container__superheroe-raiting")
+    .forEach((elem) => {
+      elem.insertAdjacentHTML("beforeend", stars());
+    }); */
+
+  //находим все элементы container__superheroe-raiting
+  const raitingSuper = document.querySelectorAll(
+    ".container__superheroe-raiting"
+  );
+  //добавляем рейтинг к каждому элементу
+  raitingSuper.forEach(function (ratingElem) {
+    ratingElem.append(stars());
+  });
+
+  // перебираем все элементы и добавляем рейтинг
+  /* for (let i = 0; i < raitingSuper.length; i++) {
+    const heroe = stars();
+    raitingSuper[i].append(heroe);
+  } */
 });
 
-//////////////////
 //находим элементы разметки и определяем переменные
 const root = document.querySelector(".root");
-const squad = document.querySelector(".container__superheroe-raiting");
 const raiting = document.querySelector(".container__tmpl");
 const tmpl = document.getElementById("tmpl");
 
 // это одна итерация в цикле по отрисовке контента с рейтингом. Начало
-const div = document.createElement("div");
-div.classList.add("container__raiting");
-const h3 = document.createElement("h3");
-h3.textContent = "Рейтинг супергероев";
-h3.classList.add("container__raiting-title");
-const formCreate = document.createElement("form");
-formCreate.id = "form";
-formCreate.append(tmpl.content.cloneNode(true));
+const stars = () => {
+  const div = document.createElement("div");
+  div.classList.add("container__raiting");
+  const h3 = document.createElement("h3");
+  h3.textContent = "Ваш рейтинг супергероя";
+  h3.classList.add("container__raiting-title");
+  const formCreate = document.createElement("form");
+  formCreate.id = "form";
+  formCreate.append(tmpl.content.cloneNode(true));
 
-div.append(h3);
-div.append(formCreate);
-raiting.append(div);
+  div.append(h3);
+  div.append(formCreate);
+  raiting.append(div);
 
-if (localStorage.getItem(formCreate.id)) {
-  const savedScore = localStorage.getItem(formCreate.id);
-  console.log(savedScore);
-  const olgStarImputs = formCreate.querySelectorAll(".icon");
+  if (localStorage.getItem(formCreate.id)) {
+    const savedScore = localStorage.getItem(formCreate.id);
+    console.log(savedScore);
+    const olgStarImputs = formCreate.querySelectorAll(".icon");
 
-  //проверяем сколько звезд отмечено
-  for (let i = 0; i < savedScore; i++) {
-    console.log(olgStarImputs[i]);
-    olgStarImputs[i].style = "fill: gold";
+    //проверяем сколько звезд отмечено
+    for (let i = 0; i < savedScore; i++) {
+      console.log(olgStarImputs[i]);
+      olgStarImputs[i].style = "fill: gold";
+    }
   }
-}
+  return raiting;
+};
 // это одна итерация в цикле по отрисовке контента с рейтингом. Конец
 
 //вешаем обработчик событий на страницу для отслеживания рейтинга

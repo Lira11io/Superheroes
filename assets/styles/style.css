@@ -28,16 +28,9 @@ p {
   padding: 11px;
 }
 
-/* .container__superheroe-occupation,
-.container__superheroe-superpowers,
-.container__superheroe-info {
-  text-align: center;
-}
- */
 /*фото супер героев*/
 .container__superheroe-img {
   max-width: 25rem;
-  /* width: 100%; */
   object-fit: cover;
   border-radius: 15px;
   margin-bottom: 1em;
@@ -73,4 +66,8 @@ p {
   position: relative;
   opacity: 0;
   z-index: 1;
+}
+
+.container__superheroe-raiting {
+  margin-bottom: 20px;
 }
