@@ -18,6 +18,7 @@
 .container__superheroe {
   display: grid;
   justify-items: center;
+  text-align: center;
   background-color: bisque;
   border-radius: 15px;
 }
@@ -27,17 +28,49 @@ p {
   padding: 11px;
 }
 
-.container__superheroe-occupation,
+/* .container__superheroe-occupation,
 .container__superheroe-superpowers,
 .container__superheroe-info {
   text-align: center;
 }
-
+ */
 /*фото супер героев*/
 .container__superheroe-img {
   max-width: 25rem;
-  width: 100%;
+  /* width: 100%; */
   object-fit: cover;
   border-radius: 15px;
   margin-bottom: 1em;
+}
+/**/
+/**/
+/**/
+.container__tmpl {
+  display: grid;
+}
+
+.icon {
+  /* goldenrod */
+  fill: black;
+  width: 20px;
+  height: 20px;
+  /* position: absolute;
+  top: -3px;
+  left: 1px; */
+}
+.container__label {
+  position: relative;
+  cursor: pointer;
+}
+/* .container {
+  width: 200px;
+  height: 200px;
+  background-color: aqua;
+} */
+
+.container__input {
+  /* display: none; */
+  position: relative;
+  opacity: 0;
+  z-index: 1;
 }

@@ -102,27 +102,85 @@ const json = `[
     }
 ]`;
 
-//получаю переменную для добавления разметки
-//const squad = document.querySelector(".container__squad");
 //вешаем обработчик события на страницу при загрузке
 document.addEventListener("DOMContentLoaded", function (event) {
   //парсим json в объект
   const superheroes = JSON.parse(json);
-  //console.log(superheroes);
+
   //создаем пустую строку
   let superheroesContent = "";
   //перебираем весь массив и создаем новую разметку
   for (let superheroe of superheroes) {
     superheroesContent += `<div class="container__superheroe">
     <h2 class="container__superheroe-title">${superheroe.name}</h2>
-    <p class="container__superheroe-universe">Вселенная: ${superheroe.universe}</p>
-    <p class="container__superheroe-alterego">Альтер эго: ${superheroe.alterego}</p>
-    <p class="container__superheroe-occupation">Занятие: ${superheroe.occupation}</p>
-    <p class="container__superheroe-friends">Друзья: ${superheroe.friends}</p>
+    <div class="container__superheroe-universe">Вселенная: ${superheroe.universe}</div>
+    <div class="container__superheroe-alterego">Альтер эго: ${superheroe.alterego}</div>
+    <div class="container__superheroe-occupation">Занятие: ${superheroe.occupation}</div>
+    <div class="container__superheroe-friends">Друзья: ${superheroe.friends}</div>
     <p class="container__superheroe-superpowers">Суперсилы: ${superheroe.superpowers}</p>
     <img class="container__superheroe-img" src="${superheroe.url}">
     <p class="container__superheroe-info">Краткий экскурс: ${superheroe.info}</p>
+    <div class="container__superheroe-raiting">Оцените супергероя</div>    
     </div>`;
   }
+  //добавляем разметку в html
   document.querySelector(".container__squad").innerHTML = superheroesContent;
+});
+
+//////////////////
+//находим элементы разметки и определяем переменные
+const root = document.querySelector(".root");
+const squad = document.querySelector(".container__superheroe-raiting");
+const raiting = document.querySelector(".container__tmpl");
+const tmpl = document.getElementById("tmpl");
+
+// это одна итерация в цикле по отрисовке контента с рейтингом. Начало
+const div = document.createElement("div");
+div.classList.add("container__raiting");
+const h3 = document.createElement("h3");
+h3.textContent = "Рейтинг супергероев";
+h3.classList.add("container__raiting-title");
+const formCreate = document.createElement("form");
+formCreate.id = "form";
+formCreate.append(tmpl.content.cloneNode(true));
+
+div.append(h3);
+div.append(formCreate);
+raiting.append(div);
+
+if (localStorage.getItem(formCreate.id)) {
+  const savedScore = localStorage.getItem(formCreate.id);
+  console.log(savedScore);
+  const olgStarImputs = formCreate.querySelectorAll(".icon");
+
+  //проверяем сколько звезд отмечено
+  for (let i = 0; i < savedScore; i++) {
+    console.log(olgStarImputs[i]);
+    olgStarImputs[i].style = "fill: gold";
+  }
+}
+// это одна итерация в цикле по отрисовке контента с рейтингом. Конец
+
+//вешаем обработчик событий на страницу для отслеживания рейтинга
+root.addEventListener("click", (event) => {
+  if (event.target.classList.contains("container__input")) {
+    const form = event.target.parentNode.parentNode;
+    const inputs = form.querySelectorAll(".container__input");
+    const icons = form.querySelectorAll(".icon");
+    const key = form.id;
+    const value = event.target.value;
+
+    icons.forEach((elem) => {
+      elem.style = "fill: black";
+    });
+
+    for (let i = 0; i < inputs.length; i++) {
+      icons[i].style = "fill: gold";
+      if (inputs[i].checked) {
+        break;
+      }
+    }
+    console.log(event.target.value);
+    localStorage.setItem(key, value);
+  }
 });
