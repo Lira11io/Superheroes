@@ -1,10 +1,13 @@
 .root {
   margin: 10px;
+  font-weight: normal;
+  font-family: "Balsamiq Sans", cursive;
 }
 
 /*Заголовок страницы*/
 .container__title {
   text-align: center;
+  font-family: "Rubik Bubbles", cursive;
 }
 
 /*обертка блока для добавления информации о супер героях*/
@@ -23,44 +26,44 @@
   border-radius: 15px;
 }
 
+/*Блок с именем супергероя*/
+.container__superheroe-title {
+  font-family: "Rubik Wet Paint", cursive;
+  font-weight: 200;
+}
+
 p {
   margin-block-start: 0;
   padding: 11px;
 }
 
-/*фото супер героев*/
+/*Фото супер героев*/
 .container__superheroe-img {
   max-width: 25rem;
   object-fit: cover;
   border-radius: 15px;
   margin-bottom: 1em;
 }
-/**/
-/**/
-/**/
+
+/*Обертка для блока с рейтингом*/
 .container__tmpl {
   display: grid;
 }
 
+/*Иконка звезды*/
 .icon {
-  /* goldenrod */
   fill: black;
   width: 20px;
   height: 20px;
-  /* position: absolute;
-  top: -3px;
-  left: 1px; */
 }
+
+/*Блок с инпутами рейтинга*/
 .container__label {
   position: relative;
   cursor: pointer;
 }
-/* .container {
-  width: 200px;
-  height: 200px;
-  background-color: aqua;
-} */
 
+/*Инпуты с рейтингом*/
 .container__input {
   /* display: none; */
   position: relative;
@@ -68,6 +71,7 @@ p {
   z-index: 1;
 }
 
+/*Блок для добавления рейтинга после загрузки*/
 .container__superheroe-raiting {
   margin-bottom: 20px;
 }

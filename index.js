@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   //перебираем весь массив и создаем новую разметку
   for (let superheroe of superheroes) {
     superheroesContent += `<div class="container__superheroe">
-    <h2 class="container__superheroe-title">${superheroe.name}</h2>
+    <h2 class="container__superheroe-title" id="${superheroe.name}">${superheroe.name}</h2>
     <div class="container__superheroe-universe">Вселенная: ${superheroe.universe}</div>
     <div class="container__superheroe-alterego">Альтер эго: ${superheroe.alterego}</div>
     <div class="container__superheroe-occupation">Занятие: ${superheroe.occupation}</div>
@@ -127,23 +127,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
   //добавляем разметку в html
   document.querySelector(".container__squad").innerHTML = superheroesContent;
 
-  //Добавляем рейтинг к каждому блоку супергероя
-  /*  document
-    .querySelectorAll(".container__superheroe-raiting")
-    .forEach((elem) => {
-      elem.insertAdjacentHTML("beforeend", stars());
-    }); */
-
   //находим все элементы container__superheroe-raiting
   const raitingSuper = document.querySelectorAll(
     ".container__superheroe-raiting"
   );
-  //добавляем рейтинг к каждому элементу
+  //добавляем рейтинг к каждому элементу (первый вариант)
   raitingSuper.forEach(function (ratingElem) {
     ratingElem.append(stars());
   });
 
-  // перебираем все элементы и добавляем рейтинг
+  // перебираем все элементы и добавляем рейтинг (второй вариант)
   /* for (let i = 0; i < raitingSuper.length; i++) {
     const heroe = stars();
     raitingSuper[i].append(heroe);
@@ -151,11 +144,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 //находим элементы разметки и определяем переменные
-const root = document.querySelector(".root");
 const raiting = document.querySelector(".container__tmpl");
 const tmpl = document.getElementById("tmpl");
 
-// это одна итерация в цикле по отрисовке контента с рейтингом. Начало
+// функция для создания элемента рейтинга
 const stars = () => {
   const div = document.createElement("div");
   div.classList.add("container__raiting");
@@ -166,33 +158,31 @@ const stars = () => {
   formCreate.id = "form";
   formCreate.append(tmpl.content.cloneNode(true));
 
+  //удочеряем заголовок h3 и форму с инпутами в div
   div.append(h3);
   div.append(formCreate);
-  raiting.append(div);
 
   if (localStorage.getItem(formCreate.id)) {
     const savedScore = localStorage.getItem(formCreate.id);
-    console.log(savedScore);
+    //console.log(savedScore);
     const olgStarImputs = formCreate.querySelectorAll(".icon");
 
     //проверяем сколько звезд отмечено
     for (let i = 0; i < savedScore; i++) {
-      console.log(olgStarImputs[i]);
+      //console.log(olgStarImputs[i]);
       olgStarImputs[i].style = "fill: gold";
     }
   }
-  return raiting;
+  return div;
 };
-// это одна итерация в цикле по отрисовке контента с рейтингом. Конец
 
 //вешаем обработчик событий на страницу для отслеживания рейтинга
-root.addEventListener("click", (event) => {
+document.addEventListener("click", (event) => {
+  //проверяем, является ли целевой элемент внутри формы рейтинга
   if (event.target.classList.contains("container__input")) {
-    const form = event.target.parentNode.parentNode;
-    const inputs = form.querySelectorAll(".container__input");
-    const icons = form.querySelectorAll(".icon");
-    const key = form.id;
-    const value = event.target.value;
+    const form = event.target.parentNode.parentNode; //находим форму с инпутами рейтинга
+    const inputs = form.querySelectorAll(".container__input"); //находим все инпуты с рейтингом
+    const icons = form.querySelectorAll(".icon"); //находим все иконки со звездами
 
     icons.forEach((elem) => {
       elem.style = "fill: black";
@@ -204,7 +194,27 @@ root.addEventListener("click", (event) => {
         break;
       }
     }
-    console.log(event.target.value);
-    localStorage.setItem(key, value);
   }
+
+  // проверяем, является ли целевой элемент заголовком супергероя
+  if (event.target.classList.contains("container__superheroe-title")) {
+    console.log(event.target.id); //выводим id заголовка супергероя
+
+    //Добавляем обработчик кликов на каждый заголовок супергероя
+    const superheroTitles = document.querySelectorAll(
+      ".container__superheroe-title"
+    );
+    superheroTitles.forEach((title) => {
+      title.addEventListener("click", (event) => {
+        console.log(event.target.id); //выводим id заголовка супергероя
+      });
+    });
+  }
+  const key = event.target.id;
+  //console.log(key);
+  const value = event.target.value; //определяем значение value
+
+  //console.log(event.target.value);
+  //записываем значение инпутов со свездами в localStorage
+  localStorage.setItem(key, value);
 });
