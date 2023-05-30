@@ -19,8 +19,6 @@
 
 /*блок с информацией о супер героях*/
 .container__superheroe {
-  display: grid;
-  justify-items: center;
   text-align: center;
   background-color: bisque;
   border-radius: 15px;
@@ -40,14 +38,10 @@ p {
 /*Фото супер героев*/
 .container__superheroe-img {
   max-width: 25rem;
+  width: 100%;
   object-fit: cover;
   border-radius: 15px;
   margin-bottom: 1em;
-}
-
-/*Обертка для блока с рейтингом*/
-.container__tmpl {
-  display: grid;
 }
 
 /*Иконка звезды*/
