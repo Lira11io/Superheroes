@@ -178,9 +178,30 @@ const stars = () => {
 
 //вешаем обработчик событий на страницу для отслеживания рейтинга
 document.addEventListener("click", (event) => {
-  //проверяем, является ли целевой элемент внутри формы рейтинга
+  //проверяем, является ли целевой элемент элементом рейтинга
   if (event.target.classList.contains("container__input")) {
-    const form = event.target.parentNode.parentNode; //находим форму с инпутами рейтинга
+    const input = event.target;
+    const form = input.closest("form"); //получаем ссылку на родительскую форму, чтобы найти заголовок супергероя
+    const superheroeTitle = form
+      .closest(".container__superheroe")
+      .querySelector(".container__superheroe-title");
+    const superheroeName = superheroeTitle.id; //получаем id героя из заголовка
+    const raitings = input.value; //получаем значение рейтинга из элемента ввода
+
+    //находим все заголовки супергероев на странице
+    const superheroTitles = document.querySelectorAll(
+      ".container__superheroe-title"
+    );
+
+    //добавляем обработчик события click для каждого заголовка супергероя
+    superheroTitles.forEach((title) => {
+      title.addEventListener("click", (event) => {
+        //при клике на заголовок, выводим id заголовка и значение рейтинга
+        console.log(event.target.id);
+        console.log(raitings);
+      });
+    });
+
     const inputs = form.querySelectorAll(".container__input"); //находим все инпуты с рейтингом
     const icons = form.querySelectorAll(".icon"); //находим все иконки со звездами
 
@@ -194,27 +215,8 @@ document.addEventListener("click", (event) => {
         break;
       }
     }
+
+    //сохраняем рейтинг героя в localStorage
+    localStorage.setItem(superheroeName, raitings);
   }
-
-  // проверяем, является ли целевой элемент заголовком супергероя
-  if (event.target.classList.contains("container__superheroe-title")) {
-    console.log(event.target.id); //выводим id заголовка супергероя
-
-    //Добавляем обработчик кликов на каждый заголовок супергероя
-    const superheroTitles = document.querySelectorAll(
-      ".container__superheroe-title"
-    );
-    superheroTitles.forEach((title) => {
-      title.addEventListener("click", (event) => {
-        console.log(event.target.id); //выводим id заголовка супергероя
-      });
-    });
-  }
-  const key = event.target.id;
-  //console.log(key);
-  const value = event.target.value; //определяем значение value
-
-  //console.log(event.target.value);
-  //записываем значение инпутов со свездами в localStorage
-  localStorage.setItem(key, value);
 });
