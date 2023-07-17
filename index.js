@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 //находим элементы разметки и определяем переменные
 const raiting = document.querySelector(".container__tmpl");
-const tmpl = document.getElementById("tmpl");
+const tmpl = document.querySelector("#tmpl");
 
 // функция для создания элемента рейтинга
 const stars = () => {
